@@ -3,6 +3,10 @@ import React, { Component } from "react";
 import TokenContract from "./contracts/SmartPiggiesBacon.json";
 import getWeb3 from "./getWeb3";
 
+/* import components */
+import GetBalance from './components/getBalance';
+
+
 import "./App.css";
 
 class App extends Component {
@@ -27,9 +31,9 @@ class App extends Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      console.log(networkId)
+      //console.log(networkId)
       const deployedNetwork = TokenContract.networks[networkId];
-      console.log(deployedNetwork)
+      //console.log(deployedNetwork)
       const instance = new web3.eth.Contract(
         TokenContract.abi,
         deployedNetwork && deployedNetwork.address,
@@ -78,6 +82,9 @@ class App extends Component {
         <p>Your Truffle Box is installed and ready.</p>
         <h2>Smart Contract Example</h2>
         <span>Account: {this.state.accounts[0]}</span>
+        <br></br>
+        <br></br>
+        <GetBalance web3={this.state.web3} account={this.state.accounts[0]} />
         <p>
           If your contracts compiled and migrated successfully, below will show
           a stored value of 5 (by default).
