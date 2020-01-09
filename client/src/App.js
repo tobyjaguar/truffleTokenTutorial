@@ -18,6 +18,7 @@ class App extends Component {
       accounts: null,
       contract: null,
       totalSupply: 0,
+      interest: 0,
     };
   }
 
@@ -71,7 +72,20 @@ class App extends Component {
     this.setState({ totalSupply });
   }
 
+  handleInput = (event) => {
+    console.log(event.target.name)
+    console.log(event.target.value)
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  handleInterest = () => {
+    const { accounts, contract } = this.state;
+    const { interest } = this.state
+    console.log(this.state.interest);
+  }
+
   render() {
+    //console.log(this.state);
     let { totalSupply: supply } = this.state;
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -95,6 +109,24 @@ class App extends Component {
         <div>The stored value is: {this.state.storageValue}</div>
         <div><button onClick={this.getSupply}>Supply</button></div>
         <div>{(supply > 0) ? supply : 0}</div>
+
+        <br></br>
+      <form>
+        <div className="form-group">
+          <label htmlFor="interest">Interest Amount</label>
+          <input
+            name="interest"
+            className="form-control"
+            id="interest"
+            onChange={this.handleInput}
+          />
+          <small id="emailHelp" className="form-text text-muted">Interest amount</small>
+        </div>
+      </form>
+
+      <button onClick={this.handleInterest} >Interest</button>
+
+      <button onClick={this.handleCreate}>Create</button>
       </div>
     );
   }
